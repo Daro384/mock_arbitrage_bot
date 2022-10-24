@@ -79,6 +79,7 @@ const fetchData = async () => {
   Promise.all(promiseArray)
   .then(poolData => {
     const bancorData = (handleBancorData(...poolData.slice(0,2)))
+    console.log(poolData[1])
     console.log(bancorData.filter(token => token.liquidity[0] !== "0"))
     fetchingGuru(bancorData.filter(token => token.liquidity[0] !== "0"))
   })
