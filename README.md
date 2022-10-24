@@ -11,6 +11,9 @@ Our app will be doing a comparison of at least two different crypto marketplaces
 User stories
 Our users will be able to open up our application/website and will be greeted with a full list of possible arbitrage transitions using cryptocurrency, it will sort them based on highest profit margin. If our user only wants to look at the top 10 then they can click on the button to view only the top 10 most profitable of all time. As well as if our user wants to learn more about a certain coin they can click on the coin page and read up on that.
 
+![Screenshot 2022-10-24 163608](https://user-images.githubusercontent.com/99115851/197634789-cf1ccde4-b95e-42ee-9749-03779a5c1185.png)
+![Screenshot 2022-10-24 163631](https://user-images.githubusercontent.com/99115851/197634791-d055041c-16c7-444b-9b7c-3ed8c5a928a5.png)
+![Screenshot 2022-10-24 163645](https://user-images.githubusercontent.com/99115851/197634797-28bb09e4-4942-4040-aacc-1c061776ad14.png)
 
 References: 
 What Is Arbitrage?:
