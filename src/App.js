@@ -1,6 +1,5 @@
 import './App.css'
 import React,{useEffect, useState} from "react"
-import { forEachTransformDependencies } from 'mathjs'
 
 const BancorTokens = "https://api-v3.bancor.network/tokens"
 const BancorPools = "https://api-v3.bancor.network/pools"
