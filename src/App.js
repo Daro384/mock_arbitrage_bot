@@ -23,7 +23,7 @@ function App() {
           />
           <Route 
             exact path="/Details/:tokenID" 
-            element={<ArbitrageDetails/>} 
+            element={<ArbitrageDetails data={arbitrageData}/>} 
           />
           <Route 
             exact path="/Top10" 

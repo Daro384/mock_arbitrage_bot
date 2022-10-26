@@ -6,7 +6,7 @@ const ArbitrageCardContainer = ({data}) => {
         return (b.profit - a.profit)
     })
     const ArbitrageCards = sortedData.map(opportunity => {
-        return (<ArbitrageCard key={opportunity.name} name={opportunity.name} profit={opportunity.profit}/>)
+        return (<ArbitrageCard key={opportunity.name} arbitrageData={opportunity}/>)
     })
     return (
         <span>
