@@ -1,0 +1,179 @@
+.Header {
+    background-color: rgb(200, 200, 200);
+    width:50%;
+    margin: auto;
+    margin-top: 50px;
+    padding: 25px;
+    text-align: center;
+    border-style: solid;
+    border-width: 4px;
+    border-color: red;
+    color:rgb(0, 0, 0);
+}
+
+.cardHolder {
+    background-color: rgb(30, 30, 30);
+    width: 45%;
+    margin:auto;
+    margin-top: 20px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: black;
+    overflow-y: scroll;
+    height: 700px;
+}
+
+.Arbitrage-Card {
+    text-align: center;
+    background-color: gray;
+    margin:auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 10px;
+    width:80%;
+    color:rgb(0, 255, 0);
+    border-style: solid;
+    border-width: 4px;
+    border-color: black;
+}
+
+.theTop {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float:left;
+    height: 100px;
+    width:33%;
+}
+
+#DetailsHeaderDiv {
+    text-align: center;
+    background-color: gray;
+    
+}
+
+#previous {
+    float:right;
+    width:20%;
+    height:30px;
+    
+}
+#next {
+    float:right;
+    width:20%;
+    height:30px;    
+}
+
+#chain-text {
+    clear:left;
+    padding:15px 0;
+    margin: auto;
+    text-align: center;
+    background-color: rgb(200, 200, 200);
+    width: 30%;
+    height: 90px;
+    font-size: 20px;
+}
+
+#buy-sell {
+    margin: auto;
+    margin-top: 10px;
+    padding-top: 1px;
+    text-align: center;
+    background-color: rgb(200, 200, 200);
+    width: 30%;
+    height: 120px;
+    font-size: 17px;
+}
+
+#guruDetails {
+    text-align: center;
+    float:left;
+    margin:auto;
+    margin-top:20px;
+    margin-left: 20px;
+    width:45%;
+    background-color: rgb(200, 200, 200);
+    padding-bottom: 20px;
+}
+
+#guruDetails p {
+    font-size: 24px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#bancorDetails {
+    text-align: center;
+    float:right;
+    margin:auto;
+    margin-top:20px;
+    margin-right: 20px;
+    width:45%;
+    background-color: rgb(200, 200, 200);
+    padding-bottom: 20px;
+}
+
+#bancorDetails p {
+    font-size: 24px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#detailSummary {
+    clear:left;
+    width:50%;
+    margin:auto;
+    background-color: rgb(200, 200, 200);
+    margin-top:260px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#detailSummary p {
+    font-size: 24px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.profit {
+    color:rgb(9, 158, 29)
+}
+
+/* .top10 {
+    margin-top: 10px;
+} */
+
+.topCard {
+    width: 50%;
+    margin:auto;
+    background-color: gray;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+}
+
+#top10Container p {
+    font-size: 18px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+#top10Container h2 {
+    text-align: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.element {
+    width:50%;
+    float: left;
+}
+
+#mainPage {
+    position:absolute;
+}
+
+#top10Button {
+    position:absolute;
+}
