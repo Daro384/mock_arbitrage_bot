@@ -8,9 +8,14 @@ import fetchData from "./FetchingData"
 function App() {
 
   const [arbitrageData, setArbitrageData] = useState([])
+  const [top10, setTop10] = useState([])
 
   useEffect(() => {
-    fetchData(setArbitrageData)
+    fetchData(setArbitrageData, setTop10)
+    const timerID = setInterval(() => fetchData(setArbitrageData, setTop10), 30000)
+    return function cleanup() {
+      clearInterval(timerID)
+    }
   }, [])
 
   return (
@@ -27,7 +32,7 @@ function App() {
           />
           <Route 
             exact path="/Top10" 
-            element={<Top10/>}
+            element={<Top10 top10Data={top10}/>}
           />
         </Routes>
       </Router>

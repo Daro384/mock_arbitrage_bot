@@ -1,7 +1,76 @@
+import simulateArbitrage from "./ArbitrageSimulator"
 const BancorTokens = "https://api-v3.bancor.network/tokens"
 const BancorPools = "https://api-v3.bancor.network/pools"
 const DEXGURU_KEY = (process.env.REACT_APP_DEXGURU_KEY)
 
+let top10BestArbitrage 
+
+fetch("http://localhost:3004/top10")
+.then(res => res.json())
+.then(top10 => {
+    top10BestArbitrage = top10
+})
+
+function toDateTime(secs) {
+    var t = new Date(1970, 0, 1) // Epoch
+    t.setSeconds(secs-(3600 * 5))
+    return t.toString().split(" ").slice(1,5).join(" ")
+}
+
+const updateTop10 = (currentTop10, setTop10) => {
+    let newTop10 = [
+        ...top10BestArbitrage, 
+        ...currentTop10.map(element => {
+            return {
+                name:element.name,
+                profit:element.profit,
+                dateTime:toDateTime(Date.now()/1000),
+                guruPrice:element.bancorData.priceUSD,
+                bancorPrice:element.guruData.priceUSD
+            }
+        })
+    ]
+    //sort by profit
+    newTop10 = newTop10.sort((a,b) => { //sorting by profit (highest profit first)
+        return (b.profit - a.profit)
+    })
+    //remove duplicates
+    newTop10 = newTop10.reduce((newArray, currentElement) => {
+        if (newArray.find(element => element.name === currentElement.name)) return [...newArray]
+        else return [...newArray, currentElement]
+    }, [])
+    
+    for (let i = 0; i < 10; i++) { //Only send a patch request if the item is different
+        if (newTop10[i].name !== top10BestArbitrage[i].name
+            ||
+            newTop10[i].profit !== top10BestArbitrage[i].profit
+        ) {
+            fetch(`http://localhost:3004/top10/${i+1}`, {
+            method:"PATCH",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                name:newTop10[i].name,
+                profit:newTop10[i].profit,
+                dateTime:newTop10[i].dateTime,
+                guruPrice:newTop10[i].bancorPrice,
+                bancorPrice:newTop10[i].guruPrice
+            })
+        })
+        }
+    }
+
+    //adding id
+    let i = 0
+    newTop10 = newTop10.slice(0,10).map(element => {
+        i++
+        return {...element, id:i}
+    })
+    top10BestArbitrage = [...newTop10]
+    setTop10(top10BestArbitrage)
+
+}
 
 const handleBancorData = (pools, tokens) => {
 
@@ -19,52 +88,8 @@ const handleBancorData = (pools, tokens) => {
 
     return tokenData
 }
-
-const simulateArbitrage = (dex1, dex2) => {
-    const tradeFee = 1.002
-
-    let buyDex
-    let sellDex
-
-    if (dex1.priceUSD > dex2.priceUSD) {
-        sellDex = dex1
-        buyDex = dex2
-    } else {
-        sellDex = dex2
-        buyDex = dex1
-    }
-
-    let sellPrice = parseFloat(sellDex.priceUSD)
-    let buyPrice = parseFloat(buyDex.priceUSD)
-    let sellLiquidity = parseFloat(sellDex.liquidity)
-    let buyLiquidity = parseFloat(buyDex.liquidity)
-
-    let cost = 0
-    let revenue = 0
-    let unitsBought = 0
-
-    if(sellPrice === 0 || buyPrice === 0 || sellLiquidity === 0 || buyLiquidity === 0) return {profit:0, cost:0, revenue:0, unitsBought:0}
-
-    while (buyPrice * tradeFee < sellPrice / tradeFee) {
-        cost += buyPrice * tradeFee
-        revenue += sellPrice / tradeFee
-        buyPrice = buyPrice * buyLiquidity/(buyLiquidity-buyPrice)
-        sellPrice = sellPrice * sellLiquidity/(sellLiquidity+sellPrice)
-        buyLiquidity -= buyPrice
-        sellLiquidity += sellPrice
-        unitsBought += 1
-    }
-    return {
-        profit:revenue-cost, 
-        cost:cost, 
-        revenue:revenue, 
-        unitsBought:unitsBought, 
-        buyDex:buyDex.DEX,
-        sellDex:sellDex.DEX
-    }
-}
   
-const fetchingGuru = (bancorData, setArbitrageData) => {
+const fetchingGuru = (bancorData, setArbitrageData, setTop10) => {
     let fetchAPI = "https://api.dev.dex.guru/v1/chain/1/tokens/market?limit=100&token_addresses="
 
     const addressObjectToName = {}
@@ -89,7 +114,12 @@ const fetchingGuru = (bancorData, setArbitrageData) => {
             }
         })
 
-        setArbitrageData(difference)
+        const sortedData = difference.sort((a,b) => { //sorting by profit (highest profit first)
+            return (b.profit - a.profit)
+        })
+        updateTop10(sortedData.slice(0,10), setTop10)
+        setArbitrageData(sortedData)
+        console.log("finished Fetching")
     }
 
     const handleGURUData = data => {
@@ -107,27 +137,28 @@ const fetchingGuru = (bancorData, setArbitrageData) => {
     .then(res => res.json())
     .then(data => {
         handleGURUData(data)}
-        )
+    )
 }
   
-const fetchData = async (setArbitrageData) => {
-const promiseArray = []
+const fetchData = (setArbitrageData, setTop10) => {
+    console.log("fetching...")
+    const promiseArray = []
 
-promiseArray.push(
-    fetch(BancorPools)
-    .then(res => res.json())
-)
+    promiseArray.push(
+        fetch(BancorPools)
+        .then(res => res.json())
+    )
 
-promiseArray.push(
-    fetch(BancorTokens)
-    .then(res => res.json())
-)
+    promiseArray.push(
+        fetch(BancorTokens)
+        .then(res => res.json())
+    )
 
-Promise.all(promiseArray)
-.then(poolData => {
-    const bancorData = (handleBancorData(...poolData.slice(0,2)))
-    fetchingGuru(bancorData.filter(token => token.liquidity[0] !== "0"), setArbitrageData)
-})
+    Promise.all(promiseArray)
+    .then(poolData => {
+        const bancorData = (handleBancorData(...poolData.slice(0,2)))
+        fetchingGuru(bancorData.filter(token => token.liquidity[0] !== "0"), setArbitrageData, setTop10)
+    })
 }
 
 export default fetchData

@@ -1,0 +1,84 @@
+{
+  "top10": [
+    {
+      "id": 1,
+      "name": "ETH",
+      "profit": 6024.892973904556,
+      "dateTime": "Oct 27 2022 20:58:54",
+      "guruPrice": 1484.8003684747175,
+      "bancorPrice": "1549.123026"
+    },
+    {
+      "id": 2,
+      "name": "LINK",
+      "profit": 1665.9294497100927,
+      "dateTime": "Oct 27 2022 20:07:10",
+      "guruPrice": 6.898321657131885,
+      "bancorPrice": "7.097080"
+    },
+    {
+      "id": 3,
+      "name": "ICHI",
+      "profit": 729.5538266213625,
+      "dateTime": "Oct 27 2022 19:50:40",
+      "guruPrice": 5.877008766024349,
+      "bancorPrice": "5.616515"
+    },
+    {
+      "id": 4,
+      "name": "WBTC",
+      "profit": 443.9244951985529,
+      "dateTime": "Oct 27 2022 20:28:11",
+      "guruPrice": 20233.803814765695,
+      "bancorPrice": "20672.965894"
+    },
+    {
+      "id": 5,
+      "name": "ENJ",
+      "profit": 280.1350857276029,
+      "dateTime": "Oct 27 2022 19:50:40",
+      "guruPrice": 0.43708453861108076,
+      "bancorPrice": "0.457435"
+    },
+    {
+      "id": 6,
+      "name": "STAKE",
+      "profit": 258.38112517175114,
+      "dateTime": "Oct 27 2022 19:50:40",
+      "guruPrice": 1.3505849485026344,
+      "bancorPrice": "2.245956"
+    },
+    {
+      "id": 7,
+      "name": "vBNT",
+      "profit": 238.41257643155495,
+      "dateTime": "Oct 27 2022 19:50:40",
+      "guruPrice": 0.38073658388513626,
+      "bancorPrice": "0.407330"
+    },
+    {
+      "id": 8,
+      "name": "INST",
+      "profit": 148.1837181182791,
+      "dateTime": "Oct 27 2022 19:50:40",
+      "guruPrice": 0.8794288878934321,
+      "bancorPrice": "0.781430"
+    },
+    {
+      "id": 9,
+      "name": "MKR",
+      "profit": 145.11610500724328,
+      "dateTime": "Oct 27 2022 19:50:40",
+      "guruPrice": 902.2430481833879,
+      "bancorPrice": "953.656838"
+    },
+    {
+      "id": 10,
+      "name": "AAVE",
+      "profit": 140.95885981294668,
+      "dateTime": "Oct 27 2022 19:52:10",
+      "guruPrice": 81.73017908661481,
+      "bancorPrice": "86.396690"
+    }
+  ]
+}
